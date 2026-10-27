@@ -1,0 +1,12 @@
+# Estilo de Python. Lo revisan la integracion continua y pre-commit.
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "W", "I", "B"]
+# E501: el largo de linea no se revisa.
+# B018: leer una propiedad para forzar su carga y validacion es intencional (ServicioBase.validar).
+ignore = ["E501", "B018"]
+
+[lint.isort]
+known-first-party = ["hana_core"]

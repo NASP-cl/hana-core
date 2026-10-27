@@ -1,0 +1,5 @@
+# Quien aprueba cambios en hana-core. Todos los servicios dependen de este paquete.
+# GitHub lo exige solo si main esta protegida con "Require review from Code Owners".
+#
+# PENDIENTE: reemplazar @PENDIENTE por el usuario o equipo responsable y quitar el #.
+# *    @PENDIENTE

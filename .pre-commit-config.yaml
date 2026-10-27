@@ -1,0 +1,29 @@
+# Instalar una vez:  pip install -r requirements-dev.txt && pre-commit install --hook-type pre-commit --hook-type pre-push
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.3
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pruebas
+        entry: python -m pytest
+        language: system
+        pass_filenames: false
+        stages: [pre-push]

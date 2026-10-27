@@ -1,0 +1,36 @@
+name: pruebas
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Instalar
+        run: pip install -e . -r requirements-dev.txt
+      - name: Estilo de Python (ruff)
+        run: ruff check .
+      - name: Pruebas
+        run: python -m pytest
+
+  secretos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Buscar secretos (gitleaks)
+        env:
+          VERSION: 8.28.0
+        run: |
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" | tar xz gitleaks
+          ./gitleaks git . --redact --verbose
